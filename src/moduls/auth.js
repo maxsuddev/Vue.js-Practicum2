@@ -1,4 +1,5 @@
 import AuthService from "@/service/auth.js";
+import {setItem} from "@/helpers/persistaneStorage.js";
 
 
 const state = {
@@ -28,7 +29,10 @@ const actions = {
         return new Promise((resolve, reject) => {
             context.commit("registerStart");
             AuthService.register(user).then(response => {
+                console.log(response.data.data.token.plainTextToken);
+                const token = response.data.data.token.plainTextToken;
                 context.commit("registerSuccess", response.data.data);
+                setItem('token', token);
                 resolve(response.data.data);
             })
                 .catch(error => {
