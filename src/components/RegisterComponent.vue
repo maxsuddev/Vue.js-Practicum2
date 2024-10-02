@@ -8,14 +8,21 @@ export default {
     }
   },
   computed : {
-    isLoading1() {
+    isLoading() {
       return this.$store.state.auth.isLoading;
     },
   },
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      this.$store.dispatch('register')
+      const data = {
+        'name': 'hello',
+        'email': 'qxqacxaxadszxsasqxa@gmail.com',
+        'password': 'password',
+      }
+      this.$store.dispatch('register', data)
+          .then(user => console.log('User' , user))
+          .catch(error => console.log('Error', error))
 
     }
   }
@@ -35,7 +42,7 @@ export default {
 
       <InputComponent :label="'Password'" :type="'password'" :placeholder="'Password'"/>
 
-      <ButtonComponent :disabled="isLoading1" type="submit" @click="submitHandler">Login</ButtonComponent>
+      <ButtonComponent :disabled="isLoading" type="submit" @click="submitHandler">Login</ButtonComponent>
 
     </form>
   </main>
