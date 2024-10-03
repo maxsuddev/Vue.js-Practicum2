@@ -1,7 +1,9 @@
 <script>
 import {LOGO} from "@/constants/constants.js";
+import ValidationError from "@/components/ValidationError.vue";
 
 export default {
+  components: {ValidationError},
   data() {
     return {
       LOGO,
@@ -11,9 +13,12 @@ export default {
     }
   },
   computed : {
-    isLoading() {
+    isLoading() {//for disable
       return this.$store.state.auth.isLoading;
     },
+    validationError() {
+      return this.$store.state.auth.error;
+    }
   },
   methods: {
     submitHandler(e) {
@@ -29,8 +34,7 @@ export default {
             console.log('User successfully registered', user);
           })
           .catch(error => console.log('Error', error))
-
-    }
+    },
   }
 }
 </script>
@@ -42,6 +46,7 @@ export default {
       <img :src="LOGO" alt="logo" style="width: 100px; height: 70px; cursor: pointer" >
       <h1 class="h3 mb-3 fw-normal mb-3">Register</h1>
 
+<ValidationError v-if="validationError" :validationError="validationError" />
       <InputComponent
           :label="'Name'"
           :type="'text'"
