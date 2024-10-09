@@ -18,12 +18,7 @@ export default {
 </script>
 
 <template>
-<h1>Store {{count}}</h1>
-  <div>
-    <ButtonComponent  @click="addCount">Add count</ButtonComponent>
-    <ButtonComponent @click="deleteCount">Add count</ButtonComponent>
-
-  </div>
+<h1>Home</h1>
 </template>
 
 <style>

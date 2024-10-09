@@ -6,33 +6,43 @@ const state = {
     isLoading: false,
     error: null,
     user: null,
+    isLogin: null,
 }
 const mutations = {
     registerStart(state) {
         state.isLoading = true;
         state.user = null;
         state.error = null;
+        state.isLogin = null;
         },
     registerSuccess(state, payload) {
         state.isLoading = false;
-        state.user = payload
+        state.user = payload;
+        state.isLogin = true;
     },
     registerFail(state, payload) {
         state.isLoading = false;
-        state.error = payload.errors
+        state.error = payload.errors;
+        state.isLogin = null;
     },
     loginStart(state) {
         state.isLoading = true;
         state.user = null;
         state.error = null;
+        state.isLogin = null;
+
     },
     loginSuccess(state, payload) {
         state.isLoading = false;
         state.user = payload;
+        state.isLogin = true;
+
     },
     loginFail(state, payload) {
         state.isLoading = false;
         state.error = payload.errors
+        state.isLogin = null;
+
     },
 
 }
