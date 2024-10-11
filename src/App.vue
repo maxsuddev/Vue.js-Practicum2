@@ -18,6 +18,9 @@ export default {
     return {
       LOGO,
     }
+  },
+  mounted() {
+    this.$store.dispatch('getUser')
   }
 }
 

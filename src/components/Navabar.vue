@@ -9,7 +9,7 @@
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
       <template v-if="isLogin">
         <RouterLink v-for="data in user" :to="{name: 'home'}" class="me-3 py-2 link-body-emphasis text-decoration-none" >{{ data.name }}</RouterLink>
-
+        <a href="#" class="me-3 py-2 link-body-emphasis text-decoration-none" @click="logout">Logout</a>
       </template>
 
       <template v-if="isAnonymous">
@@ -24,7 +24,7 @@
 </template>
 <script>
 import {LOGO} from "@/constants/constants.js";
-import {mapState} from "vuex";
+import {mapGetters} from "vuex";
 import {getterTypes} from "@/moduls/types.js";
 
 
@@ -35,21 +35,19 @@ export default {
     }
   },
   computed: {
-
-    user(){
-      return this.$store.getters[getterTypes.currentUser];
-    },
-    isLogin(){
-      return this.$store.getters[getterTypes.isLoggedIn];
-    },
-    isAnonymous(){
-      return this.$store.getters[getterTypes.isAnonymous];
-    }
+    ...mapGetters({
+      user: getterTypes.currentUser,
+      isAnonymous: getterTypes.isAnonymous,
+      isLogin: getterTypes.isLoggedIn,
+    }),
   },
 
   methods: {
     homeRouter() {
       return this.$router.push({ name: 'home' });
+    },
+    logout() {
+      this.$store.dispatch('logout');
     }
   }
 }

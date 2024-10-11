@@ -14,3 +14,11 @@ export const setItem = (key, data) => {
         return null;
     }
 }
+export const removeItem = keys => {
+    try{
+        localStorage.removeItem(keys);
+    }catch(error) {
+        console.log(error);
+        return null;
+    }
+}
