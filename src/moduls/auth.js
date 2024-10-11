@@ -1,19 +1,32 @@
 import AuthService from "@/service/auth.js";
 import {setItem} from "@/helpers/persistaneStorage.js";
+import {getterTypes} from "@/moduls/types.js";
 
 
 const state = {
     isLoading: false,
     error: null,
     user: null,
-    isLogin: null,
+    isLogin: false,
+}
+
+const getters = {
+    [getterTypes.currentUser]: state => {
+        return state.user
+    },
+    [getterTypes.isLoggedIn]: state => {
+        return Boolean(state.isLogin)
+    },
+    [getterTypes.isAnonymous]: state => {
+        return state.isLogin === false
+    }
 }
 const mutations = {
     registerStart(state) {
         state.isLoading = true;
         state.user = null;
         state.error = null;
-        state.isLogin = null;
+        state.isLogin = false;
         },
     registerSuccess(state, payload) {
         state.isLoading = false;
@@ -23,13 +36,13 @@ const mutations = {
     registerFail(state, payload) {
         state.isLoading = false;
         state.error = payload.errors;
-        state.isLogin = null;
+        state.isLogin = false;
     },
     loginStart(state) {
         state.isLoading = true;
         state.user = null;
         state.error = null;
-        state.isLogin = null;
+        state.isLogin = false;
 
     },
     loginSuccess(state, payload) {
@@ -41,7 +54,7 @@ const mutations = {
     loginFail(state, payload) {
         state.isLoading = false;
         state.error = payload.errors
-        state.isLogin = null;
+        state.isLogin = false;
 
     },
 
@@ -82,5 +95,5 @@ const actions = {
     }
 }
 export default {
-    state, mutations, actions
+    state, mutations, actions, getters
 }

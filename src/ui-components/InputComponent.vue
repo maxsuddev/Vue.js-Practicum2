@@ -25,7 +25,3 @@
     <label :for="label">{{ label }}</label>
   </div>
 </template>
-
-<style>
-
-</style>

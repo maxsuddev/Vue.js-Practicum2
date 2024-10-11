@@ -12,8 +12,7 @@
 
       </template>
 
-      <template v-if="!isLogin">
-        {{isLogin}}
+      <template v-if="isAnonymous">
         <RouterLink :to="{name: 'login'}" class="me-3 py-2 link-body-emphasis text-decoration-none" >Login</RouterLink>
 
         <RouterLink :to="{name: 'register'}" class="me-3 py-2 link-body-emphasis text-decoration-none" >Register</RouterLink>
@@ -26,6 +25,7 @@
 <script>
 import {LOGO} from "@/constants/constants.js";
 import {mapState} from "vuex";
+import {getterTypes} from "@/moduls/types.js";
 
 
 export default {
@@ -35,10 +35,16 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      user: state => state.auth.user,
-      isLogin: state => state.auth.isLogin
-    }),
+
+    user(){
+      return this.$store.getters[getterTypes.currentUser];
+    },
+    isLogin(){
+      return this.$store.getters[getterTypes.isLoggedIn];
+    },
+    isAnonymous(){
+      return this.$store.getters[getterTypes.isAnonymous];
+    }
   },
 
   methods: {
